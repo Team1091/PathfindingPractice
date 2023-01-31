@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class HarshSuperSolver {
 
@@ -12,11 +13,15 @@ public class HarshSuperSolver {
 
     private List<Vec2d> frontierNodes;
 
+    private Scanner wait;
+
     public HarshSuperSolver(Vec2d startPos, Vec2d endPos, boolean[][] map) {
         this.startPos = startPos;
         this.endPos = endPos;
         this.map = map;
         frontierNodes = new ArrayList<>();
+
+        wait = new Scanner(System.in);
     }
 
 
@@ -42,37 +47,73 @@ public class HarshSuperSolver {
 
         boolean foundPath = false; //set to true when path is found
 
-
+        var nextFrontier = new ArrayList<Vec2d>();
+        nextFrontier.add(startPos);
 
         while(!foundPath) {
-            frontierNodes = findAllFrontierPoints();
+            frontierNodes = nextFrontier;
 
-            //do calculations with frontier nodes
-            //make sure the cost map reflects how many moves it takes to get there.
-            //a value of 10 means you have to move 10 times...
-            //initally the cost map will be all 0's, you need to fill it up in here
-
-            var nextFrontier = new ArrayList<Vec2d>();
+            nextFrontier = new ArrayList<>();
 
             while (frontierNodes.size() > 0) {
                 var point = frontierNodes.get(0);
 
                 var temp = findPathAroundPoint(point);
+
+                costMap[point.x][point.y] = findLowestAdjacentCost(point) + 1;
+
+                System.out.println(temp);
+
                 for (Vec2d i : temp) {
                     nextFrontier.add(i);
                 }
 
-                frontierNodes.remove(0);
-            }
 
-            for (Vec2d point : frontierNodes) {
+
+                frontierNodes.remove(0);
+
                 if (point.isSameAs(endPos)) {
                     foundPath = true;
                 }
             }
 
+            printSolution();
+            wait.nextLine();
+        }
+        //back track
+
+
+
+
+    }
+
+    public int findLowestAdjacentCost(Vec2d point) {
+        var lowestCost = 50;
+
+        if (point.isSameAs(startPos)) {
+            return -1;
         }
 
+        if (point.x + 1 < costMap.length && costMap[point.x + 1][point.y] < lowestCost && costMap[point.x + 1][point.y] != 0) {
+            System.out.println("south");
+            lowestCost = costMap[point.x + 1][point.y];
+        }
+        if (point.x - 1 > 0 && costMap[point.x - 1][point.y] < lowestCost && costMap[point.x - 1][point.y] != 0) {
+            System.out.println("north");
+            lowestCost = costMap[point.x - 1][point.y];
+        }
+        if (point.y + 1 < costMap.length && costMap[point.x][point.y + 1] < lowestCost && costMap[point.x][point.y + 1] != 0) {
+            System.out.println("east");
+            lowestCost = costMap[point.x][point.y + 1];
+        }
+        if (point.y - 1 > 0 && costMap[point.x][point.y - 1] < lowestCost && costMap[point.x][point.y - 1] != 0) {
+            System.out.println("west");
+            lowestCost = costMap[point.x][point.y - 1];
+        }
+
+        System.out.println("Finding cost for " + point + "\t Cost is " + lowestCost);
+
+        return  lowestCost;
     }
 
     public List<Vec2d> findPathAroundPoint(Vec2d point) {
@@ -92,13 +133,6 @@ public class HarshSuperSolver {
         }
 
         return returner;
-    }
-    public List<Vec2d> findAllFrontierPoints() {
-        var returner = new ArrayList<Vec2d>();
-
-        //TODO implement
-        //make this class return all the points that we are exploring
-        return new ArrayList<>();
     }
 
     public void startTheCostMap() {
@@ -124,20 +158,26 @@ public class HarshSuperSolver {
 
     public void printSolution() {
 
+        System.out.println("This is harsh's code");
+
         for (int x = 0; x < costMap.length; x++) {
             for (int y = 0; y < costMap[0].length; y++) {
 
                 String character = String.valueOf(costMap[x][y]);
                 if (map[x][y]) {
-                    character = "X ";
+                    character = "X";
                 }
                 if (x == startPos.x && y == startPos.y) {
-                    character = "S ";
+                    character = "S";
                 } else if (x == endPos.x && y == endPos.y) {
-                    character = "E ";
+                    character = "E";
                 }
 
-                System.out.print(character);
+                if (character.equals("0")) {
+                    character = "_";
+                }
+
+                System.out.print(character+"\t");
             }
             System.out.println("\t\t" + x);
         }

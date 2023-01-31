@@ -23,14 +23,14 @@ public class Main {
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[0].length; y++) {
 
-                String character = "_ ";
+                String character = "_\t";
                 if (blocks[x][y]) {
-                    character = "X ";
+                    character = "X\t";
                 }
                 if (x == startPos.x && y == startPos.y) {
-                    character = "S ";
+                    character = "S\t";
                 } else if (x == endPos.x && y == endPos.y) {
-                    character = "E ";
+                    character = "E\t";
                 }
 
                 System.out.print(character);
@@ -41,8 +41,12 @@ public class Main {
 
         var example = new ExamplePathFinder(startPos, endPos, blocks);
 
-        example.generateSolution();
-        example.printSolution();
+        //example.generateSolution();
+        //example.printSolution();
+
+        var Harsh = new HarshSuperSolver(startPos, endPos, blocks);
+        Harsh.generateSolution();
+        Harsh.printSolution();
 
     }
 
