@@ -17,4 +17,8 @@ public class Vec2d {
     public String toString() {
         return "("+x+","+y+")";
     }
+
+    public Vec2d getCopy() {
+        return new Vec2d(x,y);
+    }
 }

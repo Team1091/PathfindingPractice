@@ -17,6 +17,8 @@ public class Main {
         blocks[6][3] = true;
         blocks[6][1] = true;
         blocks[6][2] = true;
+        blocks[6][4] = true;
+        blocks[6][5] = true;
 
         System.out.println("Below is the original map");
 
@@ -39,14 +41,14 @@ public class Main {
         }
 
 
-        var example = new B3N(startPos, endPos, blocks);
+        //var example = new B3N(startPos, endPos, blocks);
 
         //example.generateSolution();
         //example.printSolution();
 
         var Harsh = new HarshSuperSolver(startPos, endPos, blocks);
         Harsh.generateSolution();
-        Harsh.printSolution();
+        Harsh.printFinalSolution();
 
     }
 
