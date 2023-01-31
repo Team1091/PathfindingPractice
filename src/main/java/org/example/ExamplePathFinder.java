@@ -23,10 +23,26 @@ public class ExamplePathFinder {
     public void generateSolution() {
         //Start at startPos and look in the 4 directions
         //Then assign cost values to those
-
         startTheCostMap();
 
+        // initialize the frontier with the start node
+        // make a list of closed nodes that we dont need to look at
+        // make a grid of parents nodes to follow back
+
+        // while there is something in the frontier
+          // grab the closest node
+          // find its neighbors
+            // if we found the target then we are there, break
+            // otherwise
+             // add to frontier
+             // add to the cost
+
+        // set the foundPath to true
+
+
         boolean foundPath = false; //set to true when path is found
+
+
 
         while(!foundPath) {
             frontierNodes = findAllFrontierPoints();
@@ -35,6 +51,14 @@ public class ExamplePathFinder {
             //make sure the cost map reflects how many moves it takes to get there.
             //a value of 10 means you have to move 10 times...
             //initally the cost map will be all 0's, you need to fill it up in here
+
+            for (Vec2d point : frontierNodes) {
+                //go through every point on the frontier node
+
+            }
+
+            foundPath = false;
+            //if you find the path, set this to true
 
         }
 
