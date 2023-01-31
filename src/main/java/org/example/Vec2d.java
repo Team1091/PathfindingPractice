@@ -9,4 +9,8 @@ public class Vec2d {
         this.y = y;
     }
 
+    public boolean isSameAs(Vec2d other) {
+        return (x == other.x && y == other.y);
+    }
+
 }

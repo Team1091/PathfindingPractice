@@ -65,9 +65,11 @@ public class HarshSuperSolver {
                 frontierNodes.remove(0);
             }
 
-
-            foundPath = false;
-            //if you find the path, set this to true
+            for (Vec2d point : frontierNodes) {
+                if (point.isSameAs(endPos)) {
+                    foundPath = true;
+                }
+            }
 
         }
 
