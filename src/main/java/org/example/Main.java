@@ -39,7 +39,7 @@ public class Main {
         }
 
 
-        var example = new ExamplePathFinder(startPos, endPos, blocks);
+        var example = new B3N(startPos, endPos, blocks);
 
         //example.generateSolution();
         //example.printSolution();
