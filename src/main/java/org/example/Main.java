@@ -18,19 +18,32 @@ public class Main {
         blocks[6][1] = true;
         blocks[6][2] = true;
 
-        for (int i = 0; i < blocks.length; i++) {
-            for (int j = 0; j < blocks[0].length; j++) {
-                if (blocks[i][j]) {
-                    System.out.print("X ");
-                } else {
-                    System.out.print("_ ");
+        System.out.println("Below is the original map");
+
+        for (int x = 0; x < blocks.length; x++) {
+            for (int y = 0; y < blocks[0].length; y++) {
+
+                String character = "_ ";
+                if (blocks[x][y]) {
+                    character = "X ";
                 }
+                if (x == startPos.x && y == startPos.y) {
+                    character = "S ";
+                } else if (x == endPos.x && y == endPos.y) {
+                    character = "E ";
+                }
+
+                System.out.print(character);
             }
-            System.out.println("\t\t" + i);
+            System.out.println("\t\t" + x);
         }
 
 
-        System.out.println("Hello world!");
+        var example = new ExamplePathFinder(startPos, endPos, blocks);
+
+        example.generateSolution();
+        example.printSolution();
+
     }
 
 }
